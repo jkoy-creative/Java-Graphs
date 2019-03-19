@@ -1,0 +1,86 @@
+
+header {
+	padding: 7rem 1rem 3rem;
+}
+
+section {
+	padding: 2rem 1rem 2.2rem;
+}
+
+footer {
+	padding: 2rem 1rem 4rem;
+	background-color: #777;
+}
+
+
+/* styles for small devices (phones, 576px and up) */
+@media (min-width: 576px) {
+	header {
+		padding: 9rem 4rem 5rem;
+	}
+
+	section {
+		padding: 7rem 4rem 8rem;
+	}
+
+	footer {
+		padding: 3rem 4rem 5rem;
+		background-color: #777;
+	}
+}
+
+/* styles for medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+	header {
+		padding: 8rem 7rem 6rem;
+	}
+
+	section {
+		padding: 6rem 7rem 8rem;
+	}
+
+	footer {
+		padding: 3rem 7rem 5rem;
+		background-color: #777;
+	}
+}
+
+
+.nav-pills .nav-link.active {
+	color: #fff;
+	background-color: rgba(200, 200, 200, 0.4);
+}
+
+.dk-color {
+	background-color: #ccc;
+}
+
+.lt-color {
+	background-color: #0E3B43;
+	color:#FFF;
+}
+
+.md-color {
+	background-color: #F7EF99;
+}
+
+.bg-dark {
+	background-color: #22252a !important;
+}
+
+.navbar-dark .navbar-brand {
+	font-family: 'Do Hyeon', sans-serif;
+	letter-spacing: 0.05rem;
+	text-transform: uppercase;
+}
+
+.nav-link {
+	font-family: 'Do Hyeon', sans-serif;
+	letter-spacing: 0.02rem;
+	text-transform: uppercase;
+	color:#f7ef99 !important;
+}
+
+.nav-link.js-scroll-trigger.active {
+	color:#040303 !important;
+}

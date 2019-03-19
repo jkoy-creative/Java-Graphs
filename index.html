@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Scrolling Template</title>
+
+
+
+		<!-- Bootstrap core CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<!-- Mapbox Css -->
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+
+		<!-- Custom styles -->
+		<link rel="stylesheet" href="css/scrolling.css">
+		<link rel="stylesheet" href="css/myStyle.css">
+
+		<!--Fonts-->
+		<link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+
+
+
+
+	</head>
+
+	<body id="page-top">
+
+		<!-- navigation -->
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" id="mainNav">
+			<div class="container-fluid">
+
+				<a class="navbar-brand js-scroll-trigger" href="#page-top">State of Java</a>
+				<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="navbar-collapse collapse" id="navbarResponsive" style="">
+					<ul class="navbar-nav nav-pills ml-auto">
+						<li class="nav-item">
+							<a class="nav-link js-scroll-trigger" href="#page-top">Brew the Facts</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link js-scroll-trigger" href="#imports">Make the Comparison</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link js-scroll-trigger" href="#grounded">Grounded</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link js-scroll-trigger" href="#togo">Taking it To-Go</a>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+
+		<!-- header -->
+		<header class="dk-color">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-md-12 mx-auto">
+						<h1 class="huge">Brew the Facts</h1>
+						<p class="lead">Big number stats for what your entire morning revolves around. This is how the coffee reaches your cup.</p>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<!-- imports -->
+		<section id="imports" class="md-color">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-md-12 mx-auto">
+						<h2 class="huge">Imports</h2>
+					</div>
+
+					<div class="col-md-12">
+						<div id="map"></div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- grounded -->
+		<section id="grounded">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="container">
+						<div class="row">
+
+							<div id="buttons" class="col-lg-2">
+								<a id="button-1" class="btn btn-block btn-outline-dark" href="#" role="button">Production</a>
+								<a id="button-2" class="btn btn-block btn-outline-dark" href="#" role="button">Grounded</a>
+							</div>
+
+							<div id="chartDiv" class="col-lg-10"></div>
+
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</section>
+
+		<!-- To-Go -->
+		<section id="togo" class="md-color">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-md-12 mx-auto">
+						<h2 class="huge">Taking it To-Go</h2>
+						<canvas id="myChart" width="400" height="200"></canvas>
+
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+		<!-- footer -->
+		<footer class="footer bg-dark">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-md-12 mx-auto">
+						<p class="text-white">© 2018 Jessica Koynock. All rights reserved.</p>
+					</div>
+				</div>
+
+			</div>
+		</footer>
+
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+		<!-- Custom js for this theme -->
+		<script src="js/jquery.easing.min.js"></script>
+		<script src="js/scrolling.js"></script>
+
+		<!-- JS for Mapbox -->
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+		<script src='js/importsData.js'></script>
+
+		<!--Chart JS-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+		<script>
+
+		//mapbox things
+			mapboxgl.accessToken = 'pk.eyJ1IjoiamtveSIsImEiOiJjamVpcm9mdTcwcXZuMndubGc2eW5lOGMxIn0.LqVYBT6knHYg0uRU07HfGQ';
+				var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/dark-v9',
+				zoom: 1.53,
+				center:[-156.4,9.7],
+				hash: true
+			});
+
+			var popup = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false,
+			offset: 8
+		});
+
+		map.on('load', function() {
+
+			// add geojson SOURCE
+			map.addSource('importsData', {
+				'type': 'geojson',
+				'data': importsData
+			});
+
+			// add LAYER for fills from SOURCE
+			map.addLayer({
+				'id': 'country',
+				'type': 'circle',
+				'source': 'importsData',
+				'layout': {
+					'visibility': 'visible'
+				},
+				'paint': {
+                      // make circles larger as the user zooms from z12 to z22
+                      'circle-radius': [
+                        'interpolate', ['linear'],
+                                    ['get', 'imports'],
+                                    0, 1,
+                                    400, 10,
+                                    1300, 50
+                                ],
+                      'circle-color': '#F7EF99',
+                      'circle-opacity': [
+                                    'interpolate', ['linear'],
+                                    ['get', 'imports'],
+                                    0, 0.2,
+                                    1300, 0.6
+                                ]
+                    }
+			}, 'waterway-label');
+
+
+			// click event on feature in specified LAYER
+			map.on('click', 'country', function(e) {
+				// console.log(e.features[0].properties.NAME);
+			});
+
+			// change cursor to a pointer when mouse over specified LAYER
+			map.on('mousemove', 'country', function(e) {
+				map.getCanvas().style.cursor = 'pointer';
+				var coordinates = e.lngLat;
+				var imps = e.features[0].properties;
+				console.log(imps);
+				showPopup(coordinates,imps);
+			});
+
+			// change cursor back to a pointer
+			map.on('mouseleave', 'country', function() {
+				map.getCanvas().style.cursor = '';
+				popup.remove();
+			});
+
+			// function to SHOW POPUP
+			var showPopup = function(coordinates, imps) {
+				var name = '<h2 id="subHead">' + imps.country + '</h2>';
+				var imp = '<h6>' + imps.imports + " Million U.S. Dollars" + '</h6>';
+				//
+				popup
+					.setLngLat(coordinates)
+					.setHTML(name + imp)
+					.addTo(map);
+			}
+
+		});
+
+
+			var productionData = {
+				"DataType": "Production",
+				"Description": "Leading Coffee Producers Worldwide in 2017",
+				"Source": "Source: ICO, Statista",
+				"Scale": "Thousand 60kg bags",
+				"MaxValue": 60000,
+				"Values": {
+					"Brazil": 51800,
+					"Vietnam": 28800,
+					"Columbia": 14000,
+					"Indonesia": 10800,
+					"Honduras": 8349,
+					"Ethiopia": 7650,
+					"India": 5333,
+					"Uganda": 5100,
+					"Peru": 4600,
+					"Mexico": 4000
+				}
+			};
+
+			var groundedCoffeeData = {
+				"DataType": "Ground",
+				"Description": "Leading ground coffee branded of the U.S. in 2017",
+				"Source": "Source: IRI, Grocery Headquarters",
+				"Scale": "Million U.S. Dollars",
+				"MaxValue": 1200,
+				"Values": {
+					"Folgers": 1177.4,
+					"Maxwell": 562.3,
+					"Starbucks": 404.8,
+					"Private Label": 348.9,
+					"Dunkin Donuts": 284.2,
+					"Peets": 124.1,
+					"Community": 94.3,
+					"Gevalia": 93,
+					"Eight O'Clock": 87,
+					"Cafe Bustelo": 80.7
+				}
+			};
+
+
+    var createBarChart = function(data) {
+      // get object values
+      var dataValues = Object.values(data.Values);
+			var dataKeys = Object.keys(data.Values);
+      // new string with sub head
+      var barChartHtml = '<h2 id="subHead">' + data.Description + '</h2>' + '<br>' + '<h5 id="subHead">' + data.Scale + '</h5>' + '<br>';
+      // loop through data, add bars
+      for (var i = 0; i < dataValues.length; i++) {
+        var amt = dataValues[i];
+				var pct = dataValues[i]/data.MaxValue*100;
+        barChartHtml += '<div class="names">' + dataKeys[i] + '</div> <div class="progress"><div class="progress-bar bar-' + i + '" role="progressbar" style="width: ' + pct + '%" aria-valuenow="' + amt + '" aria-valuemin="0" aria-valuemax=" '+ data.MaxValue +' ">' + amt + '</div></div>';
+      }
+      $('#chartDiv').html(barChartHtml);
+    };
+
+		createBarChart(productionData);
+		//createBarChart(groundedCoffeeData);
+
+		$('#button-1').click(function(e){
+			e.preventDefault();
+			createBarChart(productionData);
+		});
+
+		$('#button-2').click(function(e){
+			e.preventDefault();
+			createBarChart(groundedCoffeeData);
+		});
+
+		//To-Go chart
+
+		var ctx = $("#myChart");
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: ["Japan", "United States", "Canada", "Australia", "Germany", "France", "Russia", "UK", "Brazil", "China", "Italy", "Spain"],
+		        datasets: [{
+		            label: '% of Coffee Taken To-go by Country',
+		            data: [48, 45, 43, 23, 17, 17, 17, 17, 13, 10, 3, 3],
+		            backgroundColor: [
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+										'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)',
+		                'rgba(0,0,0,0.5)'
+		            ],
+		            borderColor: [
+		                'rgba(0,0,0,1)',
+		                'rgba(0,0,0,1)',
+		                'rgba(0,0,0,1)',
+		                'rgba(0,0,0,1)',
+		                'rgba(0,0,0,1)',
+		                'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+										'rgba(0,0,0,1)',
+		            ],
+		            borderWidth: 1
+		        }]
+		    },
+		    options: {
+		        scales: {
+		            yAxes: [{
+		                ticks: {
+		                    beginAtZero:true
+		                }
+		            }]
+		        }
+		    }
+		});
+
+
+		</script>
+
+	</body>
+</html>
